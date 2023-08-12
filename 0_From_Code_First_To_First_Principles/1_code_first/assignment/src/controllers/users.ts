@@ -61,3 +61,25 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     })
 
 }
+
+const editUser = async (req: Request, res: Response, next: NextFunction) => {
+
+    let id: string = req.params.id;
+
+    let email: string = req.body.email;
+    let username: string = req.body.username;
+    let firstName: string = req.body.firstName;
+    let lastName: string = req.body.lastName;
+
+    let response: AxiosResponse = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+        ...(email && { email }),
+        ...(username && { username }),
+        ...(firstName && { firstName }),
+        ...(lastName && { lastName })
+    });
+
+    return res.status(200).json({
+        message: response.data
+    })
+
+}
