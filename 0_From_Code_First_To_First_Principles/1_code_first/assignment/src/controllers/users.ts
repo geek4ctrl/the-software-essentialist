@@ -10,9 +10,12 @@ interface User {
     password: string;
 }
 
+const baseUrl = "http://localhost:3000";
+const baseUrlTwo = "https://jsonplaceholder.typicode.com"
+
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
 
-    let result: AxiosResponse = await axios.get(`https://jsonplaceholder.typicode.com/users`);
+    let result: AxiosResponse = await axios.get(`${baseUrl}/users`);
     let users: [User] = result.data;
     return res.status(200).json({
         message: users
@@ -24,13 +27,13 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 
     let email: string = req.params.email;
 
-    let result: AxiosResponse = await axios.get(`https://jsonplaceholder.typicode.com/users/${email}`);
-    let user: User = result.data;
+    let result: AxiosResponse = await axios.get(`${baseUrl}/users?email=${email}`);
+    let users: User = result.data;
 
-    if (user) {
+    if (users) {
         return res.status(200).json({
             error: undefined,
-            data: user,
+            data: users,
             success: true
         });
     } else {
@@ -50,7 +53,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     let firstName: string = req.body.firstName;
     let lastName: string = req.body.lastName;
 
-    let response: AxiosResponse = await axios.post(`https://jsonplaceholder.typicode.com/users`, {
+    let response: AxiosResponse = await axios.post(`${baseUrl}/users`, {
         email, username, firstName, lastName
     });
 
@@ -71,7 +74,7 @@ const editUser = async (req: Request, res: Response, next: NextFunction) => {
     let firstName: string = req.body.firstName;
     let lastName: string = req.body.lastName;
 
-    let response: AxiosResponse = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, {
+    let response: AxiosResponse = await axios.put(`${baseUrl}/users/${id}`, {
         ...(email && { email }),
         ...(username && { username }),
         ...(firstName && { firstName }),
