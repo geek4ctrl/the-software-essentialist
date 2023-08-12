@@ -41,6 +41,23 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
         });
     }
 
+}
 
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
+
+    let email: string = req.body.email;
+    let username: string = req.body.username;
+    let firstName: string = req.body.firstName;
+    let lastName: string = req.body.lastName;
+
+    let response: AxiosResponse = await axios.post(`https://jsonplaceholder.typicode.com/users`, {
+        email, username, firstName, lastName
+    });
+
+    return res.status(200).json({
+        error: undefined,
+        data: { email, username, firstName, lastName },
+        success: true
+    })
 
 }
