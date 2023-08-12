@@ -83,3 +83,5 @@ const editUser = async (req: Request, res: Response, next: NextFunction) => {
     })
 
 }
+
+export default { getUsers, getUser, editUser, createUser };
