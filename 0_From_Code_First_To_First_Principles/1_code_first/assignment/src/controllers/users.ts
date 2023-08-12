@@ -71,7 +71,7 @@ const editUser = async (req: Request, res: Response, next: NextFunction) => {
     let firstName: string = req.body.firstName;
     let lastName: string = req.body.lastName;
 
-    let response: AxiosResponse = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    let response: AxiosResponse = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, {
         ...(email && { email }),
         ...(username && { username }),
         ...(firstName && { firstName }),
